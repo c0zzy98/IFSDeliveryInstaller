@@ -29,7 +29,7 @@ namespace IFSDeliveryInstaller
 
         private void LoadCommandsFromJson()
         {
-            string jsonPath = @"C:\Users\kkozlowski\Documents\IFSDeliveryInstaller\IFSDeliveryInstaller\IFSDeliveryInstaller\bin\Debug\commands.json"; // Ścieżka do pliku JSON
+            string jsonPath = Path.Combine(Application.StartupPath, "commands.json"); // Ścieżka do pliku JSON
 
             if (File.Exists(jsonPath))
             {
@@ -69,7 +69,7 @@ namespace IFSDeliveryInstaller
         {
             string sourcePath = txtArchivePath.Text; // Ścieżka wybranego pliku .7z lub .zip
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(sourcePath); // Nazwa pliku bez rozszerzenia
-            string installerPath = Path.Combine(@"C:\ifsremote\ifsroot\deliveries", fileNameWithoutExtension, "ifsinstaller");
+            string installerPath = Path.Combine(@"D:\ifsremote\ifsroot\deliveries", fileNameWithoutExtension, "ifsinstaller");
 
             if (Directory.Exists(installerPath))
             {
@@ -81,9 +81,11 @@ namespace IFSDeliveryInstaller
                         StartInfo = new ProcessStartInfo
                         {
                             FileName = "cmd.exe",
-                            Arguments = $"/k cd \"{installerPath}\" && {command}", // Wykonanie komendy
+                            Arguments = $"/k cd /d \"{installerPath}\" && {command}", // Użycie cd /d
                             UseShellExecute = true,
-                            CreateNoWindow = false
+                            CreateNoWindow = false,
+                            Verb = "runas" // Uruchom jako administrator
+
                         }
                     };
 
@@ -124,7 +126,7 @@ namespace IFSDeliveryInstaller
         private void btnUnpack_Click(object sender, EventArgs e)
         {
             string sourcePath = txtArchivePath.Text;
-            string destinationRoot = @"C:\ifsremote\ifsroot\deliveries";
+            string destinationRoot = @"D:\ifsremote\ifsroot\deliveries";
 
             if (File.Exists(sourcePath))
             {

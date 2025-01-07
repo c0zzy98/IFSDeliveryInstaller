@@ -116,7 +116,7 @@
             this.Controls.Add(this.btnSelectArchive);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IFSDeliveryInstaller";
-            this.Text = "Form1";
+            this.Text = "IFSDeliveryInstaller";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
